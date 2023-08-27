@@ -3,7 +3,11 @@ const pool = require('../../db/connection');
 class DataModel {
 
   async getUsers() {
-    const query = 'SELECT * FROM users';
+    const query = ` 
+      SELECT * 
+      FROM 
+        users;
+      `;
     const result = await pool.query(query);
     return result.rows;
   }
