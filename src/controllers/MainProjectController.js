@@ -8,8 +8,13 @@ class MainProjectController {
             await mainProjectModel.addMainProject(project_name);
             res.json({ message: 'Main Project added correctly' });
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Error adding Main Project' });
+            if (error.code === '23505') {
+                // Duplicate key error (project already exists)
+                res.status(400).json({ message: 'Project already exists' });
+            } else {
+                // Other unexpected error
+                res.status(500).json({ message: 'Error adding Main Project' });
+            }
         }
     }
 
