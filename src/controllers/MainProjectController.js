@@ -22,16 +22,16 @@ class MainProjectController {
         const { project_name } = req.query;
         try {
             const mainProject = await mainProjectModel.getMainProject(project_name);
-            if(mainProject.length > 0) {
+            if (mainProject.length) {
                 res.json({ message: 'Project found', data: mainProject });
             } else {
-                res.json({ message: 'No project found' });
+                res.status(404).json({ message: 'Project not found' });
             }
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Error getting Main Project' });
         }
-    }  
+    }
 
 }
 
