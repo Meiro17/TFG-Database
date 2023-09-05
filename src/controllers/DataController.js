@@ -1,10 +1,10 @@
-const dataModel = require('../models/DataModel');
+const dataModel = require('../models/MainProjectModel');
 
-class DataController {
+class MainProjectController {
 
-  async getUsers(req, res) {
+  async getMainProject(req, res) {
     try {
-      const users = await dataModel.getUsers();
+      const main_project = await dataModel.getUsers();
       res.json(users);
     } catch (error) {
       console.error(error);
@@ -12,17 +12,17 @@ class DataController {
     }
   }
 
-//   async addUser(req, res) {
-//     const { nombre, email } = req.body;
-//     try {
-//       await dataModel.addUser(nombre, email);
-//       res.json({ message: 'Usuario añadido correctamente' });
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ message: 'Error al agregar usuario' });
-//     }
-//   }
+  async addProject(req, res) {
+    const { project_name } = req.body;
+    try {
+      await dataModel.addUser(nombre, email);
+      res.json({ message: 'Usuario añadido correctamente' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error al agregar usuario' });
+    }
+  }
 
 }
 
-module.exports = new DataController();
+module.exports = new MainProjectController();
