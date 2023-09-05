@@ -9,7 +9,7 @@ class MainProjectController {
             res.json({ message: 'Main Project added correctly' });
         } catch (error) {
             if (error.code === '23505') {
-                // Duplicate key error (project already exists)
+                // Duplicate key error
                 res.status(400).json({ message: 'Project already exists' });
             } else {
                 // Other unexpected error

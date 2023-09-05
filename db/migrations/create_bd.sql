@@ -93,6 +93,10 @@ CREATE TABLE taiga_tasks (
     milestone_closed BOOLEAN
 );
 
+/******************************************************************************/
+/************************************GITHUB************************************/
+/******************************************************************************/
+
 -- Table to store information about GitHub Users
 CREATE TABLE github_users (
     id TEXT PRIMARY KEY,
@@ -102,10 +106,6 @@ CREATE TABLE github_users (
     type TEXT,
     admin TEXT
 );
-
-/******************************************************************************/
-/************************************GITHUB************************************/
-/******************************************************************************/
 
 -- Table to store information about GitHub Issues
 CREATE TABLE github_issues (
@@ -122,7 +122,8 @@ CREATE TABLE github_issues (
     created_at DATE,
     updated_at DATE,
     closed_at DATE,
-    state TEXT
+    state TEXT,
+    labels_name TEXT
 );
 
 -- Table to store information about GitHub Commits

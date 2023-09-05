@@ -11,9 +11,9 @@ INSERT INTO github_users (id, login, url, type, admin) VALUES
     ('user3', 'user3', 'https://github.com/user3', 'type3', 'no');
 
 -- Insert data into the github_issues table
-INSERT INTO github_issues (id, project_name, user_id, assignee_id, url, html_url, number, title, body, created_at, updated_at, closed_at, state) VALUES
-    ('issue1', 'Project A', 'user1', 'user2', 'https://github.com/issue1', 'https://github.com/issue1', '1', 'Title of Issue 1', 'Description of Issue 1', '2023-09-01', '2023-09-02', NULL, 'open'),
-    ('issue2', 'Project B', 'user2', 'user3', 'https://github.com/issue2', 'https://github.com/issue2', '2', 'Title of Issue 2', 'Description of Issue 2', '2023-09-03', '2023-09-04', '2023-09-05', 'closed');
+INSERT INTO github_issues (id, project_name, user_id, assignee_id, url, html_url, number, title, body, created_at, updated_at, closed_at, state, labels_name) VALUES
+    ('issue1', 'Project A', 'user1', 'user2', 'https://github.com/issue1', 'https://github.com/issue1', '1', 'Title of Issue 1', 'Description of Issue 1', '2023-09-01', '2023-09-02', NULL, 'open', 'label1'),
+    ('issue2', 'Project B', 'user2', 'user3', 'https://github.com/issue2', 'https://github.com/issue2', '2', 'Title of Issue 2', 'Description of Issue 2', '2023-09-03', '2023-09-04', '2023-09-05', 'closed', 'label2');
 
 -- Insert data into the github_commits table
 INSERT INTO github_commits (sha, project_name, user_id, url, repository, date, message, message_char_count, message_word_count, task_is_written, task_reference, verified, verified_reason, stats_total, stats_additions, stats_deletions) VALUES

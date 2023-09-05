@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 
 app.use('/api/project', require('./routes/mainProjectRoutes'));
 app.use('/api/taigaTasks', require('./routes/taigaTasksRoutes'));
+app.use('/api/githubIssues', require('./routes/githubIssuesRoutes'));
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
