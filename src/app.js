@@ -10,6 +10,9 @@ app.use('/api/project', require('./routes/mainProjectRoutes'));
 app.use('/api/taigaTasks', require('./routes/taigaTasksRoutes'));
 app.use('/api/github', require('./routes/githubRoutes'));
 
+app.use('/api/indicators', require('./routes/metricsRoutes'));
+app.use('/api/factors', require('./routes/metricsRoutes'));
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });

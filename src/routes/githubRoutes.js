@@ -4,6 +4,6 @@ const githubController = require('../controllers/GithubController');
 
 router.post('/issues/add', githubController.addGithubIssue);
 
-// router.post('/commits/add', githubController.addGithubCommit);
+router.post('/commits/add', githubController.addGithubCommit);
 
 module.exports = router;

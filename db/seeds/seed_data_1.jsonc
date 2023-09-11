@@ -1,0 +1,42 @@
+{
+    "http://localhost:3000/api/github/issues/add":
+    {
+        "main_project": {
+            "project_name": "Project A"
+        },
+        "issue": {
+            "id": "asssssignee_1",
+            "url": "https://github.com/repo/issue/1",
+            "title": "Sample Issue"
+        },
+        "user": {
+            "login": "user1",
+            "id": "useeeeeeeeer_1",
+            "type": "user",
+            "url": "https://fdasfdas"
+        },
+        "assignee": {
+            "login": "user1",
+            "id": "123",
+            "type": "user",
+            "url": "https://fdasfdas"
+        }
+    },
+    "http://localhost:3000/api/github/commits/add":
+    {
+        "main_project": {
+            "project_name": "Project C"
+        },
+        "commit": {
+            "sha": "commit6748912",
+            "url": "https://github.com/repo/commit/1",
+            "message": "Sample Issue"
+        },
+        "user": {
+            "login": "user3",
+            "id": "user_2_commits",
+            "type": "user",
+            "url": "https://fdasfdas"
+        }
+    }
+}
