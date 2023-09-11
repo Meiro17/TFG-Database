@@ -11,15 +11,14 @@ class GithubController {
                 return res.status(404).json({ message: 'Project not found' });
             }
 
-            const issue_exists = await githubModel.getIssue(main_project.project_name, issue.id);
-            if (issue_exists.length) {
-                res.status(400).json({ message: 'Github Issue already exists' });
-            }
-
             await githubModel.addIssue(main_project, issue, user, assignee);
             res.status(200).json({ message: 'Github Issue added correctly' });
         } catch (error) {
-            res.status(500).json({ message: 'Error adding Github Issue', arguments: error.message });
+            if (error.code === '23505') {
+                res.status(400).json({ message: 'Github Issue already exists' });
+            } else {
+                res.status(500).json({ message: 'Error adding Github Issue', arguments: error.message });
+            }
         }
     }
 
@@ -31,15 +30,14 @@ class GithubController {
                 return res.status(404).json({ message: 'Project not found' });
             }
 
-            const commit_exists = await githubModel.getCommit(main_project.project_name, commit.sha);
-            if (commit_exists.length) {
-                res.status(400).json({ message: 'Github Commit already exists' });
-            }
-
             await githubModel.addCommit(main_project, commit, user);
             res.status(200).json({ message: 'Github Commit added correctly' });
         } catch (error) {
-            res.status(500).json({ message: 'Error adding Github Commit', arguments: error.message });
+            if (error.code === '23505') {
+                res.status(400).json({ message: 'Github Commit already exists' });
+            } else {
+                res.status(500).json({ message: 'Error adding Github Commit', arguments: error.message });
+            }
         }
     }
 

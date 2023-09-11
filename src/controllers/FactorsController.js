@@ -10,16 +10,15 @@ class FactorsController {
             if (!mainProject.length) {
                 res.status(404).json({ message: 'Project not found' });
             }
-
-            const factor_exists = await factorsModel.getFactor(main_project.project_name, factor.factor);
-            if (factor_exists.length) {
-                res.status(400).json({ message: 'Factor already exist' });
-            }
+            
             await factorsModel.addFactor(main_project, factor);
             res.status(200).json({ message: 'Factor added correctly' });
         } catch (error) {
-            res.status(500).json({ message: 'Error adding Factor', arguments: error.message });
-
+            if (error.code === '23505') {
+                res.status(400).json({ message: 'Factor already exist' });
+            } else {
+                res.status(500).json({ message: 'Error adding Factor', arguments: error.message });
+            }
         }
     }
 

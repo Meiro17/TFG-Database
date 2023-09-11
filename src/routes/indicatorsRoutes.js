@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const taigaTasksController = require('../controllers/TaigaTasksController');
+const indicatorsController = require('../controllers/IndicatorsController');
 
-router.get('/', taigaTasksController.getUnassignedTasks);
+router.post('/add', indicatorsController.addIndicator);
 
-router.get('/', taigaTasksController.getUnassignedTasks);
+router.get('/', indicatorsController.getIndicator);
 
 module.exports = router;
