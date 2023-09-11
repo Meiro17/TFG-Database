@@ -6,7 +6,7 @@ class MainProjectController {
         const { project_name } = req.body;
         try {
             await mainProjectModel.addMainProject(project_name);
-            res.json({ message: 'Main Project added correctly' });
+            res.status(200).json({ message: 'Main Project added correctly' });
         } catch (error) {
             if (error.code === '23505') {
                 // Duplicate key error
@@ -23,12 +23,11 @@ class MainProjectController {
         try {
             const mainProject = await mainProjectModel.getMainProject(project_name);
             if (mainProject.length) {
-                res.json({ message: 'Project found', data: mainProject });
+                res.status(200).json({ message: 'Project found', data: mainProject });
             } else {
                 res.status(404).json({ message: 'Project not found' });
             }
         } catch (error) {
-            console.error(error);
             res.status(500).json({ message: 'Error getting Main Project' });
         }
     }

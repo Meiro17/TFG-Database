@@ -153,12 +153,12 @@ CREATE TABLE github_commits (
 
 -- Table to store information about Factors
 CREATE TABLE factors (
-    project TEXT PRIMARY KEY REFERENCES main_project(project_name),
+    factor TEXT PRIMARY KEY,
+    project_name TEXT REFERENCES main_project(project_name),
     -- Fields for Factors information
-    factor TEXT,
     evaluation_date DATE,
     indicators TEXT,
-    weights DOUBLE PRECISION[],
+    weights DOUBLE PRECISION,
     name TEXT,
     description TEXT,
     datasource TEXT,
@@ -169,12 +169,12 @@ CREATE TABLE factors (
 
 -- Table to store information about Strategic Indicators
 CREATE TABLE strategic_indicators (
-    project TEXT PRIMARY KEY REFERENCES main_project(project_name),
+    strategic_indicator TEXT PRIMARY KEY,
+    project_name TEXT REFERENCES main_project(project_name),
     -- Fields for Strategic Indicators information
     datasource TEXT,
     description TEXT,
     evaluation_date DATE,
-    strategic_indicator TEXT,
     name TEXT,
     value DOUBLE PRECISION
 );

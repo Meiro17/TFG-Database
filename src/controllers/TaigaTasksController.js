@@ -8,7 +8,7 @@ class TaigaTasksController {
       try {
           const tasks = await taigaTasksModel.getUnassignedTasks(project_name);
           if (tasks.length) {
-              res.json(tasks);
+              res.status(200).json(tasks);
           } else {
               if (project_name == null) {
                   res.status(400).json({ message: 'Project name is null' });

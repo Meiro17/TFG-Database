@@ -17,12 +17,9 @@ class GithubController {
             }
 
             await githubModel.addIssue(main_project, issue, user, assignee);
-            res.json({ message: 'Github Issue added correctly' });
+            res.status(200).json({ message: 'Github Issue added correctly' });
         } catch (error) {
-            if (error) {
-                // Other unexpected error
-                res.status(500).json({ message: 'Error adding Github Issue', arguments: error.message });
-            }
+            res.status(500).json({ message: 'Error adding Github Issue', arguments: error.message });
         }
     }
 
@@ -40,12 +37,9 @@ class GithubController {
             }
 
             await githubModel.addCommit(main_project, commit, user);
-            res.json({ message: 'Github Commit added correctly' });
+            res.status(200).json({ message: 'Github Commit added correctly' });
         } catch (error) {
-            if (error) {
-                // Other unexpected error
-                res.status(500).json({ message: 'Error adding Github Commit', arguments: error.message });
-            }
+            res.status(500).json({ message: 'Error adding Github Commit', arguments: error.message });
         }
     }
 
