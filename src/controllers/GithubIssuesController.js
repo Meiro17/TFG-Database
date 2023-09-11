@@ -6,7 +6,7 @@ class GithubIssuesController {
         const { issue, user, assignee } = req.body;
         try {
             await githubIssuesModel.addGithubIssue(issue, user, assignee);
-            res.json({ message: 'Main Project added correctly' });
+            res.json({ message: 'Github Issue added correctly' });
         } catch (error) {
             if (error.code === '23505') {
                 // Duplicate key error
