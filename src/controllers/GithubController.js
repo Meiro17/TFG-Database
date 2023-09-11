@@ -1,11 +1,11 @@
-const githubIssuesModel = require('../models/GithubIssuesModel');
+const githubModel = require('../models/GithubModel');
 
-class GithubIssuesController {
+class GithubController {
 
     async addGithubIssue(req, res) {
         const { issue, user, assignee } = req.body;
         try {
-            await githubIssuesModel.addGithubIssue(issue, user, assignee);
+            await githubModel.addGithubIssue(issue, user, assignee);
             res.json({ message: 'Github Issue added correctly' });
         } catch (error) {
             if (error.code === '23505') {
@@ -20,4 +20,4 @@ class GithubIssuesController {
 
 }
 
-module.exports = new GithubIssuesController();
+module.exports = new GithubController();
