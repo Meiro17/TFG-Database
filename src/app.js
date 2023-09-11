@@ -7,9 +7,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api/project', require('./routes/mainProjectRoutes'));
-app.use('/api/taigaTasks', require('./routes/taigaTasksRoutes'));
 app.use('/api/github', require('./routes/githubRoutes'));
-
+app.use('/api/taiga', require('./routes/taigaRoutes'));
 app.use('/api/indicators', require('./routes/indicatorsRoutes'));
 app.use('/api/factors', require('./routes/factorsRoutes'));
 

@@ -6,12 +6,12 @@ class MainProjectController {
         const { project_name } = req.body;
         try {
             await mainProjectModel.addMainProject(project_name);
-            res.status(200).json({ message: 'Main Project added correctly' });
+            return res.status(200).json({ message: 'Main Project added correctly' });
         } catch (error) {
             if (error.code === '23505') {
-                res.status(400).json({ message: 'Project already exists' });
+                return res.status(400).json({ message: 'Project already exists' });
             } else {
-                res.status(500).json({ message: 'Error adding Main Project' });
+                return res.status(500).json({ message: 'Error adding Main Project' });
             }
         }
     }
@@ -21,11 +21,12 @@ class MainProjectController {
         try {
             const mainProject = await mainProjectModel.getMainProject(project_name);            
             if (!mainProject.length) {
-                res.status(404).json({ message: 'Project not found' });
-            } 
-            res.status(200).json({ message: 'Project found', data: mainProject });
+                return res.status(404).json({ message: 'Project not found' });
+            } else {
+                return res.status(200).json({ message: 'Project found', data: mainProject });
+            }
         } catch (error) {
-            res.status(500).json({ message: 'Error getting Main Project' });
+            return res.status(500).json({ message: 'Error getting Main Project' });
         }
     }
 
