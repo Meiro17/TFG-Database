@@ -61,6 +61,118 @@ class TaigaController {
             return res.status(500).json({ message: 'Error deleting Taiga Task', arguments: error.message });
         }
     }
+    
+    async getUnassignedTasks(req, res) {
+        const { project_name } = req.query;
+        try {
+            const mainProject = await mainProjectModel.getMainProject(project_name);
+            if (!mainProject.length) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+
+            const unassigned_tasks = await taigaModel.getUnassignedTasks(project_name);
+            return res.status(200).json({ message: 'Unassigned tasks', data: unassigned_tasks });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error getting unassigned tasks', error: error.message });
+        }
+    }
+
+    async getEstimatedEffortTasks(req, res) {
+        const { project_name } = req.query;
+        try {
+            const mainProject = await mainProjectModel.getMainProject(project_name);
+            if (!mainProject.length) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+
+            const estimatedeffort_tasks = await taigaModel.getEstimatedEffortTasks(project_name);
+            return res.status(200).json({ message: 'Estimated effort tasks', data: estimatedeffort_tasks });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error getting estimated effort tasks', error: error.message });
+        }
+    }
+
+    async getAssignedTasks(req, res) {
+        const { project_name } = req.query;
+        try {
+            const mainProject = await mainProjectModel.getMainProject(project_name);
+            if (!mainProject.length) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+
+            const assigned_tasks = await taigaModel.getAssignedTasks(project_name);
+            return res.status(200).json({ message: 'Assigned tasks', data: assigned_tasks });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error getting assigned tasks', error: error.message });
+        }
+    }
+
+    async getHighDeviatedTasks(req, res) {
+        const { project_name, threshold } = req.query;
+        try {
+            const mainProject = await mainProjectModel.getMainProject(project_name);
+            if (!mainProject.length) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+
+            const hd_tasks = await taigaModel.getHighDeviatedTasks(project_name, threshold);
+            return res.status(200).json({ message: 'High deviated tasks', data: hd_tasks });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error getting high deviated tasks', error: error.message });
+        }
+    }
+
+    async getActualEffortClosedTasks(req, res) {
+        const { project_name } = req.query;
+        try {
+            const mainProject = await mainProjectModel.getMainProject(project_name);
+            if (!mainProject.length) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+
+            const ae_tasks = await taigaModel.getActualEffortClosedTasks(project_name);
+            return res.status(200).json({ message: 'Actual effort tasks', data: ae_tasks });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error getting actual effort tasks', error: error.message });
+        }
+    }
+
+    async getClosedUserTasks(req, res) {
+        const { project_name, assigned } = req.query;
+        try {
+            const mainProject = await mainProjectModel.getMainProject(project_name);
+            if (!mainProject.length) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+
+            const cu_tasks = await taigaModel.getClosedUserTasks(project_name, assigned);
+            return res.status(200).json({ message: `Closed ${assigned} tasks`, data: cu_tasks });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error getting closed tasks', error: error.message });
+        }
+    }    
+
+    async getAssignedUserTasks(req, res) {
+        const { project_name, assigned } = req.query;
+        try {
+            const mainProject = await mainProjectModel.getMainProject(project_name);
+            if (!mainProject.length) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+
+            const au_tasks = await taigaModel.getAssignedUserTasks(project_name, assigned);
+            return res.status(200).json({ message: `Assigned ${assigned} tasks`, data: au_tasks });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error getting assigned user tasks', error: error.message });
+        }
+    }    
 
 /*UserStory*/
     async addUserStory(req, res) {
@@ -119,6 +231,38 @@ class TaigaController {
             return res.status(200).json({ message: 'Taiga User Story deleted', data: userstory_data });
         } catch (error) {
             return res.status(500).json({ message: 'Error deleting Taiga User Story', arguments: error.message });
+        }
+    }
+
+    async getPatternUserStories(req, res) {
+        const { project_name } = req.query;
+        try {
+            const mainProject = await mainProjectModel.getMainProject(project_name);
+            if (!mainProject.length) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+
+            const p_userstories = await taigaModel.getPatternUserStories(project_name);
+            return res.status(200).json({ message: 'Pattern user stories', data: p_userstories });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error getting pattern user stories', error: error.message });
+        }
+    }
+
+    async getACUsertories(req, res) {
+        const { project_name } = req.query;
+        try {
+            const mainProject = await mainProjectModel.getMainProject(project_name);
+            if (!mainProject.length) {
+                return res.status(404).json({ message: 'Project not found' });
+            }
+
+            const ac_userstories = await taigaModel.getACUsertories(project_name);
+            return res.status(200).json({ message: 'Acceptance criteria user stories', data: ac_userstories });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error getting accceptance criteria user stories', error: error.message });
         }
     }
 
@@ -240,24 +384,7 @@ class TaigaController {
         } catch (error) {
             return res.status(500).json({ message: 'Error deleting Taiga Issue', arguments: error.message });
         }
-    }     
-
-/**/
-    async getUnassignedTasks(req, res) {
-        const { project_name } = req.query;
-        try {
-            const mainProject = await mainProjectModel.getMainProject(project_name);
-            if (!mainProject.length) {
-                return res.status(404).json({ message: 'Project not found' });
-            }
-
-            const unassigned_tasks = await taigaModel.getUnassignedTasks(project_name);
-            return res.status(200).json({ message: 'Unassigned tasks', data: unassigned_tasks });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Error getting unassigned tasks', error: error.message });
-        }
-  }
+    }    
 
 }
 

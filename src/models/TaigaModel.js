@@ -119,6 +119,151 @@ class TaigaModel {
       return result.rows;
     }
 
+    async getUnassignedTasks(project_name) {
+        const query = `
+          SELECT 
+            COUNT(*) AS unassigned_tasks 
+          FROM 
+            taiga_tasks 
+          WHERE 
+            milestone_closed = FALSE AND
+            assigned IS NULL AND
+            project_name = $1;
+        `;
+        const result = await pool.query(query, [project_name]);
+        return result.rows;
+    }
+
+    async getEstimatedEffortTasks(project_name) {
+        const query = `
+          SELECT 
+            COUNT(*) AS estimatedeffort_tasks
+          FROM 
+            taiga_tasks 
+          WHERE 
+            milestone_closed = FALSE AND
+            estimated_effort IS NOT NULL AND
+            project_name = $1;
+        `;
+        const result = await pool.query(query, [project_name]);
+        return result.rows;
+    }
+
+    async getAssignedTasks(project_name) {
+        const query = `
+          WITH AssignedTasks AS (
+            SELECT
+              assigned,
+              COUNT(*) AS task_count
+            FROM
+              taiga_tasks
+            WHERE
+              assigned IS NOT NULL
+              AND project_name = $1
+            GROUP BY
+              assigned
+          )
+          SELECT
+            json_object_agg(assigned, task_count) AS assigned_tasks
+          FROM
+            AssignedTasks;        
+        `;        
+        const result = await pool.query(query, [project_name]);
+        return result.rows[0];
+    }
+
+    async getAssignedUserTasks(project_name, assigned) {
+      const query1 = `
+        SELECT 
+          COUNT(*) AS total_tasks
+        FROM 
+          taiga_tasks
+        WHERE
+          project_name = $1;
+      `; 
+      const query2 = `
+        SELECT 
+          COUNT(*) AS user_tasks
+        FROM 
+          taiga_tasks
+        WHERE 
+          project_name = $1
+          AND assigned = $2;
+      `;       
+      const result1 = await pool.query(query1, [project_name]);
+      const result2 = await pool.query(query2, [project_name, assigned]);
+      return {
+        total_tasks: result1.rows[0].total_tasks,
+        user_tasks: result2.rows[0].user_tasks
+      };
+  }
+
+    async getActualEffortClosedTasks(project_name) {
+        const query = `
+        SELECT
+          COUNT(*) AS actualeffort_tasks
+        FROM
+          taiga_tasks
+        WHERE
+          project_name = $1
+          AND is_closed = true
+          AND actual_effort IS NOT NULL
+          AND milestone_closed = false;        
+        `;        
+        const result = await pool.query(query, [project_name]);
+        return result.rows[0];
+    }
+
+    async getClosedUserTasks(project_name, assigned) {
+      const query1 = ` 
+        SELECT
+          COUNT(*) AS total_tasks
+        FROM
+          taiga_tasks
+        WHERE
+          project_name = $1
+          AND assigned = $2;      
+      `;  
+      const query2 = ` 
+        SELECT
+          COUNT(*) AS closed_tasks
+        FROM
+          taiga_tasks
+        WHERE
+          project_name = $1
+          AND assigned = $2
+          AND is_closed = true;     
+      `;        
+      const result1 = await pool.query(query1, [project_name, assigned]);
+      const result2 = await pool.query(query2, [project_name, assigned]);
+      return {
+        total_tasks: result1.rows[0].total_tasks,
+        closed_user_tasks: result2.rows[0].closed_tasks
+      };
+  }
+    
+    async getHighDeviatedTasks(project_name, threshold) {
+        const query = `
+          SELECT
+            COUNT(*) AS high_deviated_tasks
+          FROM
+            taiga_tasks
+          WHERE
+            project_name = $1
+            AND is_closed = true
+            AND estimated_effort IS NOT NULL
+            AND actual_effort IS NOT NULL
+            AND milestone_closed = false
+            AND ABS(actual_effort - estimated_effort) > (estimated_effort * $2) / 100;
+        `;
+        
+        const result = await pool.query(query, [
+          project_name,
+          threshold
+        ]);
+        return result.rows[0];
+    }
+
 /*UserStory*/ 
     async addUserStory(main_project, userstory) {
         const query = `
@@ -240,6 +385,36 @@ class TaigaModel {
         id
       ]);
       return result.rows;
+    }
+    
+    async getPatternUserStories(project_name) {
+        const query = `
+          SELECT
+            COUNT(*) AS pattern_userstories
+          FROM 
+            taiga_userstories
+          WHERE 
+            project_name = $1 AND
+            pattern = true AND
+            milestone_closed = false;
+        `;
+        const result = await pool.query(query, [project_name]);
+        return result.rows;
+    }
+
+    async getACUsertories(project_name) {
+        const query = `
+          SELECT
+            COUNT(*) AS acceptance_criteria_userstories
+          FROM 
+            taiga_userstories
+          WHERE 
+            project_name = $1 
+            AND acceptance_criteria = true
+            AND milestone_closed = false;
+        `;
+        const result = await pool.query(query, [project_name]);
+        return result.rows;
     }
 
 /*Epic*/ 
@@ -414,28 +589,7 @@ class TaigaModel {
         id
       ]);
       return result.rows;
-    }
-
-/**/
-    async getUnassignedTasks(project_name) {
-        const query = `
-          SELECT 
-            COUNT(*) AS unassigned_tasks 
-          FROM 
-            taiga_tasks 
-          WHERE 
-            milestone_closed = FALSE AND
-            assigned IS NULL AND
-            project_name = $1;
-        `;
-        const result = await pool.query(query, [project_name]);
-        const stats = {
-          tasksTotal: result.rows[0].taskstotal,
-          tasksUnassigned: result.rows[0].tasksunassigned
-        };
-
-        return stats;
-    }
+    }    
 
 }
 
