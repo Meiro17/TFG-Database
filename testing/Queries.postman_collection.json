@@ -1,0 +1,2808 @@
+{
+	"info": {
+		"_postman_id": "dd2c2418-2cf0-4812-b8f3-47fdd6558e1d",
+		"name": "Queries",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19838730"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/api/project/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"  pm.expect(pm.response.code).to.equal(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required field - message\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"",
+							"pm.test(\"The response is in JSON format\", function () {",
+							"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "project_name",
+							"value": "TestProject",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/project/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"project",
+						"add"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "TestProject",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/project/get?project_name=Project A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has required fields - message and data\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist;",
+							"    pm.expect(responseData.data).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Project name is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.be.an('array');",
+							"    pm.expect(responseData.data.length).to.be.at.least(1);",
+							"    responseData.data.forEach(function (project) {",
+							"        pm.expect(project.project_name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'data' array is present in the response and contains at least one element\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.exist.and.to.be.an('array').and.to.have.lengthOf.at.least(1);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/project/get?project_name=Project A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"project",
+						"get"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/github/issues/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.expect(pm.response.code).to.equal(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"The 'message' field is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Request is sent to the correct API endpoint\", function () {",
+							"    pm.expect(pm.request.url).to.equal(\"http://localhost:3000/api/github/issues/add\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Request body is in the correct format\", function () {",
+							"  const requestData = pm.request.json();",
+							"",
+							"  pm.expect(requestData).to.be.an('object');",
+							"  pm.expect(requestData.title).to.exist.and.to.be.a('string');",
+							"  pm.expect(requestData.description).to.exist.and.to.be.a('string');",
+							"  pm.expect(requestData.labels).to.exist.and.to.be.an('array');",
+							"  pm.expect(requestData.labels.length).to.be.at.least(1, \"At least one label should be provided\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"main_project\": {\r\n            \"project_name\": \"Project A\"\r\n        },\r\n        \"issue\": {\r\n            \"id\": \"asssssignee_1\",\r\n            \"url\": \"https://github.com/repo/issue/1\",\r\n            \"title\": \"Sample Issue\"\r\n        },\r\n        \"user\": {\r\n            \"login\": \"user1\",\r\n            \"id\": \"useeeeeeeeer_1\",\r\n            \"type\": \"user\",\r\n            \"url\": \"https://fdasfdas\"\r\n        },\r\n        \"assignee\": {\r\n            \"login\": \"user1\",\r\n            \"id\": \"123\",\r\n            \"type\": \"user\",\r\n            \"url\": \"https://fdasfdas\"\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/github/issues/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"github",
+						"issues",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/github/commits/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.expect(pm.response.code).to.equal(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required field - message\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the request URL is correct\", function () {",
+							"    pm.expect(pm.request.url).to.equal(\"http://localhost:3000/api/github/commits/add\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"Project C\"\r\n    },\r\n    \"commit\": {\r\n        \"sha\": \"commit6748912\",\r\n        \"url\": \"https://github.com/repo/commit/1\",\r\n        \"message\": \"Sample Issue\"\r\n    },\r\n    \"user\": {\r\n        \"login\": \"user3\",\r\n        \"id\": \"user_2_commits\",\r\n        \"type\": \"user\",\r\n        \"url\": \"https://fdasfdas\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/github/commits/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"github",
+						"commits",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/factors/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"  pm.response.to.have.status(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Request URL is correct\", function () {",
+							"  pm.expect(pm.request.url).to.equal(\"http://localhost:3000/api/factors/add\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Request method is POST\", function () {",
+							"  pm.expect(pm.request.method).to.equal(\"POST\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"factor\": {\r\n        \"factor\": \"factor1\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/factors/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"factors",
+						"add"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "TestProject",
+							"disabled": true
+						},
+						{
+							"key": "factor",
+							"value": "factor1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/factors",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Factor is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.be.an('array');",
+							"    ",
+							"    responseData.data.forEach(function (item) {",
+							"        pm.expect(item.factor).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Project_name is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Data array should not be empty\");",
+							"    responseData.data.forEach(function (item) {",
+							"        pm.expect(item.project_name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Project_name should be a non-empty string\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Evaluation_date is a valid date format\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.data).to.be.an('array').and.to.have.lengthOf.at.least(1);",
+							"",
+							"  responseData.data.forEach(function(factor) {",
+							"    pm.expect(factor.evaluation_date).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+							"  });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"factor\": {\r\n        \"factor\": \"factor1\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/factors?project_name=TestProject&factor=factor1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"factors"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "TestProject"
+						},
+						{
+							"key": "factor",
+							"value": "factor1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/factors/update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response message is not empty\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify the request URL is correct\", function () {",
+							"    pm.expect(pm.request.url).to.equal(\"http://localhost:3000/api/factors/update\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Request method is PUT\", function () {",
+							"    pm.expect(pm.request.method).to.equal(\"PUT\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the request body is not empty\", function () {",
+							"    const requestBody = pm.request.body;",
+							"",
+							"    pm.expect(requestBody).to.exist.and.not.to.be.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"factor\": {\r\n        \"factor\": \"factor1\",\r\n        \"weights\": \"1.0\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/factors/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"factors",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/indicators/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"  pm.expect(pm.response.code).to.equal(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has a non-empty error message\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.message).to.exist.and.to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response does not contain sensitive information\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.not.contain('password');",
+							"    pm.expect(responseData.message).to.not.contain('token');",
+							"    pm.expect(responseData.message).to.not.contain('creditCard');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is within an acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify response headers contain the appropriate content type\", function () {",
+							"    pm.response.headers.each(function (header) {",
+							"        if (header.key === \"Content-Type\") {",
+							"            pm.expect(header.value).to.include(\"application/json\");",
+							"        }",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"strategic_indicator\": {\r\n        \"strategic_indicator\": \"indicator1\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/indicators/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"indicators",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/indicators/?project_name=TestProject&strategic_indicator=indicator1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Strategic_indicator is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.be.an('array');",
+							"    ",
+							"    responseData.data.forEach(function(item) {",
+							"        pm.expect(item.strategic_indicator).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Project_name is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.be.an('array');",
+							"    pm.expect(responseData.data.length).to.be.above(0);",
+							"    responseData.data.forEach(function(item){",
+							"        pm.expect(item.project_name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Datasource is null or a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.be.an('array');",
+							"    ",
+							"    responseData.data.forEach(function (item) {",
+							"        pm.expect(item.datasource).to.satisfy(function (value) {",
+							"            return value === null || typeof value === 'string' && value.length > 0;",
+							"        });",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/indicators/?project_name=TestProject&strategic_indicator=indicator1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"indicators",
+						""
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "TestProject"
+						},
+						{
+							"key": "strategic_indicator",
+							"value": "indicator1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/tasks/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required field 'message'\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"The message field is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"The message field has a maximum length limit\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.have.lengthOf.at.most(100, \"Message length should not exceed 100 characters\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is within an acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"task\": {\r\n        \"id\": \"task123\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/tasks/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"tasks",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/tasks/update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {",
+							"    pm.expect(pm.response.code).to.equal(404);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the 'message' field is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"task\": {\r\n        \"id\": \"task1234\",\r\n        \"subject\": \"Test subject\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/tasks/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"tasks",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/tasks/delete?project_name=TestProject&id=task123",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify the presence and count of 'data' array\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.exist.and.to.be.an('array');",
+							"    pm.expect(responseData.data.length).to.equal(1, \"Expected 'data' array to contain 1 element\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate id is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.be.an('array').and.to.have.lengthOf.at.least(1);",
+							"    ",
+							"    responseData.data.forEach(function(task) {",
+							"        pm.expect(task.id).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/tasks/delete?project_name=TestProject&id=task123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"tasks",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "TestProject"
+						},
+						{
+							"key": "id",
+							"value": "task123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/userstories/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has a non-empty message field\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.message).to.exist.and.to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the message field is a string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.message).to.be.a('string');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"userstory\": {\r\n        \"id\": \"userstory123\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/userstories/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"userstories",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/userstories/update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the user story is updated correctly in the database\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"    pm.expect(pm.response.json().message).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is within an acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"userstory\": {\r\n        \"id\": \"userstory123\",\r\n        \"subject\": \"Test Subject\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/userstories/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"userstories",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/userstories/delete?project_name=TestProject&id=userstory123",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response message is empty\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'data' array is present and contains the expected number of elements\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.exist.and.to.be.an('array');",
+							"    pm.expect(responseData.data.length).to.be.at.least(1, \"Expected at least 1 element in 'data' array\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/userstories/delete?project_name=TestProject&id=userstory123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"userstories",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "TestProject"
+						},
+						{
+							"key": "id",
+							"value": "userstory123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/epics/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.message).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Request URL is correct\", function () {",
+							"    pm.expect(pm.request.url).to.equal(\"http://localhost:3000/api/taiga/epics/add\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Request method is POST\", function () {",
+							"    pm.expect(pm.request.method).to.equal(\"POST\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"epic\": {\r\n        \"id\": \"epic123\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/epics/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"epics",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/epics/update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has a non-empty message field\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist.and.to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message field is a string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.message).to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate request URL\", function () {",
+							"  pm.expect(pm.request.url).to.equal(\"http://localhost:3000/api/taiga/epics/update\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"epic\": {\r\n        \"id\": \"epic123\",\r\n        \"subject\": \"Subject Test\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/epics/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"epics",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/epics/delete?project_name=TestProject&id=epic123",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the response message\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'data' array is present in the response\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.data).to.exist.and.to.be.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/epics/delete?project_name=TestProject&id=epic123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"epics",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "TestProject"
+						},
+						{
+							"key": "id",
+							"value": "epic123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/issues/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is within an acceptable range\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the request URL is correct\", function () {",
+							"    pm.expect(pm.request.url).to.equal(\"http://localhost:3000/api/taiga/issues/add?=\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"issue\": {\r\n        \"id\": \"issue123\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/issues/add?=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"issues",
+						"add"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/issues/update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message is a success message\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.message).to.equal(\"Success\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"main_project\": {\r\n        \"project_name\": \"TestProject\"\r\n    },\r\n    \"issue\": {\r\n        \"id\": \"issue123\",\r\n        \"subject\": \"Test Subject\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/issues/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"issues",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/issues/delete?project_name=TestProject&id=issue123",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the 'id' field is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.be.an('array').and.to.not.be.empty;",
+							"    ",
+							"    responseData.data.forEach(function(issue) {",
+							"        pm.expect(issue.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate project_name field is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.data).to.be.an('array');",
+							"  ",
+							"  responseData.data.forEach(function(issue) {",
+							"    pm.expect(issue.project_name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"  });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Subject field is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.data).to.be.an('array');",
+							"    responseData.data.forEach(function(issue) {",
+							"        pm.expect(issue.subject).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Subject should not be empty\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/issues/delete?project_name=TestProject&id=issue123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"issues",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "TestProject"
+						},
+						{
+							"key": "id",
+							"value": "issue123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/tasks/unassigned?project_name=Project A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has required fields\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist;",
+							"  pm.expect(responseData.data).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Unassigned tasks array is present and not empty\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.data).to.exist.and.to.be.an('array');",
+							"  pm.expect(responseData.data).to.have.lengthOf.at.least(1, \"Unassigned tasks array should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"The unassigned_tasks array contains the expected number of elements\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.data[0].unassigned_tasks).to.be.an('array');",
+							"  pm.expect(responseData.data[0].unassigned_tasks).to.have.lengthOf(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/tasks/unassigned?project_name=Project A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"tasks",
+						"unassigned"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/tasks/EE?project_name=Project A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response is an object with required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist;",
+							"    pm.expect(responseData.data).to.exist.and.to.be.an('array');",
+							"    pm.expect(responseData.data.length).to.be.at.least(1, \"Data should not be empty\");",
+							"    pm.expect(responseData.data[0].estimatedeffort_tasks).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Estimated effort tasks is not empty\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.data).to.be.an('array');",
+							"    responseData.data.forEach(function (task) {",
+							"        pm.expect(task.estimatedeffort_tasks).to.exist.and.to.not.be.empty;",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Estimated effort tasks is a valid number\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.data).to.be.an('array').and.not.empty;",
+							"  ",
+							"  responseData.data.forEach(function(task) {",
+							"    pm.expect(task.estimatedeffort_tasks).to.exist.and.to.be.a('number');",
+							"  });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is within an acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/tasks/EE?project_name=Project A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"tasks",
+						"EE"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/tasks/assigned",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'message' field is empty\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.message).to.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'data' field is an object\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData.data).to.be.an('object');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'assigned_tasks' field is present in the response\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.have.property('assigned_tasks');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/tasks/assigned?project_name=Project A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"tasks",
+						"assigned"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/tasks/HD?project_name=Project A&threshold=2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist;",
+							"    pm.expect(responseData.data).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"High deviated tasks should not be empty\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData.data.high_deviated_tasks).to.exist.and.to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the project name in the response matches the requested project name\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData.data.project_name).to.equal(\"Project A\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Threshold is a non-negative integer\", function () {",
+							"    const responseData = pm.response.json();",
+							"    const threshold = pm.request.url.query.get(\"threshold\");",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(threshold).to.match(/^\\d+$/, \"Threshold should be a non-negative integer\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/tasks/HD?project_name=Project A&threshold=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"tasks",
+						"HD"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						},
+						{
+							"key": "threshold",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/userstories/pattern?project_name=Project A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the presence and length of the 'data' array\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.data).to.exist.and.to.be.an('array');",
+							"  pm.expect(responseData.data).to.have.lengthOf(1);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the 'pattern_userstories' field is not empty\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.data).to.be.an('array');",
+							"    responseData.data.forEach(function(item) {",
+							"        pm.expect(item.pattern_userstories).to.exist.and.to.not.be.empty;",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the 'message' field is empty\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist.and.to.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is within an acceptable range\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/userstories/pattern?project_name=Project A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"userstories",
+						"pattern"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						},
+						{
+							"key": "threshold",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/github/commits/modlines?project_name=Project A&repository=repository1&login=user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData).to.have.property('message');",
+							"    pm.expect(responseData).to.have.property('data');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Data is an array\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.data).to.be.an('array');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Each element in 'data' has the required fields\", function () {",
+							"  const responseData = pm.response.json();",
+							"  const data = responseData.data;",
+							"",
+							"  pm.expect(data).to.be.an('array');",
+							"",
+							"  data.forEach(function (element) {",
+							"    pm.expect(element.total_modified_lines).to.exist.and.to.be.a('number');",
+							"    pm.expect(element.user_modified_lines).to.exist.and.to.be.a('number');",
+							"  });",
+							"});",
+							"",
+							"",
+							"pm.test(\"total_modified_lines and user_modified_lines are non-negative integers\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.data).to.be.an('array').and.to.have.lengthOf.at.least(1);",
+							"    ",
+							"    responseData.data.forEach(function (commit) {",
+							"        pm.expect(commit.total_modified_lines).to.be.a('number').and.to.be.at.least(0);",
+							"        pm.expect(commit.user_modified_lines).to.be.a('number').and.to.be.at.least(0);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/github/commits/modlines?project_name=Project A&repository=repository1&login=user1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"github",
+						"commits",
+						"modlines"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						},
+						{
+							"key": "repository",
+							"value": "repository1"
+						},
+						{
+							"key": "login",
+							"value": "user1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/github/commits/taskref?project_name=Project A&repository=repository1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields - message and data\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist;",
+							"  pm.expect(responseData.data).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that 'repo_commits' and 'commits_with_task' fields are present in the response\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+							"    pm.expect(responseData.data.repo_commits).to.exist.and.to.be.a('string');",
+							"    pm.expect(responseData.data.commits_with_task).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that 'repo_commits' field is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data.repo_commits).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"pm.test(\"Verify repo_commits field format\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.be.an('object');",
+							"    pm.expect(responseData.data.repo_commits).to.be.a('string');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/github/commits/taskref?project_name=Project A&repository=repository1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"github",
+						"commits",
+						"taskref"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						},
+						{
+							"key": "repository",
+							"value": "repository1"
+						},
+						{
+							"key": "login",
+							"value": "user1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/userstories/AC?project_name=Project A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has required fields\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist;",
+							"  pm.expect(responseData.data).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Acceptance criteria for user stories is not empty\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.exist.and.to.be.an('array').that.is.not.empty;",
+							"    responseData.data.forEach(function(userstory) {",
+							"        pm.expect(userstory.acceptance_criteria_userstories).to.exist.and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the 'data' array is not empty\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.data).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Data array should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that 'acceptance_criteria_userstories' field is present and is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.be.an('array');",
+							"    ",
+							"    responseData.data.forEach(function (item) {",
+							"        pm.expect(item.acceptance_criteria_userstories).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/userstories/AC?project_name=Project A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"userstories",
+						"AC"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						},
+						{
+							"key": "repository",
+							"value": "repository1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/tasks/AEC?project_name=Project A",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has required fields\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist;",
+							"  pm.expect(responseData.data).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message field is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Data field is an object\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.data).to.be.an('object');",
+							"});",
+							"",
+							"",
+							"pm.test(\"The 'actualeffort_tasks' field is present in the 'data' object\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data).to.be.an('object');",
+							"    pm.expect(responseData.data.actualeffort_tasks).to.exist;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/tasks/AEC?project_name=Project A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"tasks",
+						"AEC"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/github/commits?project_name=Project A&repository=repository1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the response structure\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist;",
+							"  pm.expect(responseData.data).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'repo_commits' field is empty\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.data.repo_commits).to.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'user_commits' array is present and contains at least one element\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.user_commits).to.exist.and.to.be.an('array').and.to.have.lengthOf.at.least(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/github/commits?project_name=Project A&repository=repository1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"github",
+						"commits"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						},
+						{
+							"key": "repository",
+							"value": "repository1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/github/commits/user?project_name=Project A&repository=repository1&login=hector",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist;",
+							"    pm.expect(responseData.data).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that repo_commits and user_commits fields are non-empty strings\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData.data.repo_commits).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    pm.expect(responseData.data.user_commits).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'message' field is empty\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.equal(\"\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'data' field is an object\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.data).to.be.an('object');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/github/commits/user?project_name=Project A&repository=repository1&login=hector",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"github",
+						"commits",
+						"user"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						},
+						{
+							"key": "repository",
+							"value": "repository1"
+						},
+						{
+							"key": "login",
+							"value": "hector"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/tasks/assigned/user?project_name=Project A&assigned=Ana",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields - message and data\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.exist;",
+							"    pm.expect(responseData.data).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Total tasks is a non-negative integer\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.data.total_tasks).to.be.a('number');",
+							"  pm.expect(responseData.data.total_tasks).to.be.at.least(0);",
+							"});",
+							"",
+							"",
+							"pm.test(\"User tasks is a non-empty array\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.data.user_tasks).to.be.an('array').and.to.have.lengthOf.at.least(1, \"User tasks should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the project name in the response matches the requested project name\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.data).to.exist;",
+							"  pm.expect(responseData.data.project_name).to.equal(\"Project A\", \"Project name should match the requested project name\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/tasks/assigned/user?project_name=Project A&assigned=Ana",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"tasks",
+						"assigned",
+						"user"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						},
+						{
+							"key": "assigned",
+							"value": "Ana"
+						},
+						{
+							"key": "login",
+							"value": "hector",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/taiga/tasks/closed/user?project_name=Project A&assigned=Ana",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has required fields\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist;",
+							"  pm.expect(responseData.data).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Total tasks is a non-negative integer\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.data.total_tasks).to.be.a('number').and.to.be.at.least(0);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Closed user tasks is a non-negative integer\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.data.closed_user_tasks).to.be.a('number').and.to.be.at.least(0);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the project name in the response matches the requested project name\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.data.project_name).to.equal(\"Project A\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/taiga/tasks/closed/user?project_name=Project A&assigned=Ana",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"taiga",
+						"tasks",
+						"closed",
+						"user"
+					],
+					"query": [
+						{
+							"key": "project_name",
+							"value": "Project A"
+						},
+						{
+							"key": "assigned",
+							"value": "Ana"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/token/get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Token field is present in the response\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.token).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Token is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.token).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Token should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Token is in a valid format\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.token).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Token should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzMjEsImlhdCI6MTY5NzAzNTI0MywiZXhwIjoxNjk3MTIxNjQzfQ.xrUCei0U5QsTv-JCCbtAEPDsMpem8xAvy4o32p6Uftw\"",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 12321\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/token/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"token",
+						"get"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
