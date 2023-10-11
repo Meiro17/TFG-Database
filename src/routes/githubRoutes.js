@@ -1,17 +1,18 @@
+const tokenController = require('../controllers/TokenController');
+const githubController = require('../controllers/GithubController');
 const express = require('express');
 const router = express.Router();
-const githubController = require('../controllers/GithubController');
 
-router.post('/issues/add', githubController.addIssue);
+router.post('/issues/add', tokenController.tokenVerificationMiddleware, githubController.addIssue);
 
-router.post('/commits/add', githubController.addCommit);
+router.post('/commits/add', tokenController.tokenVerificationMiddleware, githubController.addCommit);
 
-router.get('/commits/modlines', githubController.getModifiedLines);
+router.get('/commits/modlines', tokenController.tokenVerificationMiddleware, githubController.getModifiedLines);
 
-router.get('/commits/taskref', githubController.getCommitsTaskRef);
+router.get('/commits/taskref', tokenController.tokenVerificationMiddleware, githubController.getCommitsTaskRef);
 
-router.get('/commits', githubController.getCommits);
+router.get('/commits', tokenController.tokenVerificationMiddleware, githubController.getCommits);
 
-router.get('/commits/user', githubController.getCommitsUser);
+router.get('/commits/user', tokenController.tokenVerificationMiddleware, githubController.getCommitsUser);
 
 module.exports = router;

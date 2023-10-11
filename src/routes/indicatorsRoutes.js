@@ -1,9 +1,10 @@
+const tokenController = require('../controllers/TokenController');
+const indicatorsController = require('../controllers/IndicatorsController');
 const express = require('express');
 const router = express.Router();
-const indicatorsController = require('../controllers/IndicatorsController');
 
-router.post('/add', indicatorsController.addIndicator);
+router.post('/add', tokenController.tokenVerificationMiddleware, indicatorsController.addIndicator);
 
-router.get('/', indicatorsController.getIndicator);
+router.get('/', tokenController.tokenVerificationMiddleware, indicatorsController.getIndicator);
 
 module.exports = router;

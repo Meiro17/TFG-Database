@@ -1,3 +1,4 @@
+const tokenController = require('../controllers/TokenController');
 const express = require('express');
 const router = express.Router();
 // const metricsController = require('../controllers/MetricsController');

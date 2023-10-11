@@ -1,5 +1,4 @@
 const pool = require('../../db/connection');
-
 class MainProjectModel {
 
   async addMainProject(project_name) {

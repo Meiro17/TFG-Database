@@ -1,9 +1,10 @@
+const tokenController = require('../controllers/TokenController');
+const mainProjectController = require('../controllers/MainProjectController');
 const express = require('express');
 const router = express.Router();
-const mainProjectController = require('../controllers/MainProjectController');
 
-router.post('/add', mainProjectController.addMainProject);
+router.post('/add', tokenController.tokenVerificationMiddleware, mainProjectController.addMainProject);
 
-router.get('/get', mainProjectController.getMainProject);
+router.get('/get', tokenController.tokenVerificationMiddleware, mainProjectController.getMainProject);
 
 module.exports = router;

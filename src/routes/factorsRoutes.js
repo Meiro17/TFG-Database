@@ -1,11 +1,12 @@
+const tokenController = require('../controllers/TokenController');
+const factorsController = require('../controllers/FactorsController');
 const express = require('express');
 const router = express.Router();
-const factorsController = require('../controllers/FactorsController');
 
-router.post('/add', factorsController.addFactor);
+router.post('/add', tokenController.tokenVerificationMiddleware, factorsController.addFactor);
 
-router.put('/update', factorsController.updateFactor);
+router.put('/update', tokenController.tokenVerificationMiddleware, factorsController.updateFactor);
 
-router.get('/', factorsController.getFactor);
+router.get('/', tokenController.tokenVerificationMiddleware, factorsController.getFactor);
 
 module.exports = router;
